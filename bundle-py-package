@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+HERE=${PWD}
+
+zip -r app.zip \
+    worker.py \
+    cert \
+    vendor \
+    deploy-worker
+
+pushd ${VIRTUAL_ENV}/lib/python2.7/site-packages
+zip -r ${HERE}/app.zip *
+popd

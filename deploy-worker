@@ -1,0 +1,27 @@
+#!/bin/bash
+set -e
+
+export PATH=${PWD}/vendor:${PATH}
+export PYTHONPATH=${PWD}:${PYTHONPATH}
+
+PUBLIC_IP=
+SPEC_FILE=
+while [ $# -gt 0 ]; do
+    case ${1} in
+        --public-ip)
+            shift 1; PUBLIC_IP=$1; shift 1 ;;
+        --spec)
+            shift 1; SPEC_FILE=$1; shift 1 ;;
+        *)
+            echo "Refuse to process $@; Unexpected arguments/flag"
+            exit 1 ;;
+    esac
+done
+
+# Setup Docker Client environment
+export DOCKER_HOST=tcp://${PUBLIC_IP}:2376
+export DOCKER_TLS_VERIFY=1
+export DOCKER_CERT_PATH=${PWD}/cert
+
+# Launch service by specification
+docker-compose -p parse -f ${SPEC_FILE} up -d
