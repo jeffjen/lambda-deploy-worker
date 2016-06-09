@@ -12,6 +12,10 @@ while [ $# -gt 0 ]; do
             shift 1; PUBLIC_IP=$1; shift 1 ;;
         --spec)
             shift 1; SPEC_FILE=$1; shift 1 ;;
+        help|--help|-h)
+            echo "Command usage:"
+            echo "deploy-worker --public-ip [hostname] --spec [specfile]"
+            exit 0 ;;
         *)
             echo "Refuse to process $@; Unexpected arguments/flag"
             exit 1 ;;
