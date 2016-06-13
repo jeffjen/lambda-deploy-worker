@@ -68,5 +68,8 @@ cert
 .venv
 venv
 
+# ignore the runtime dotenv file
+.env
+
 # vim tmp object
 *.sw*
