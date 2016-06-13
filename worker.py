@@ -1,12 +1,18 @@
 from __future__ import print_function
+from datetime import datetime
+
+from dotenv import load_dotenv, find_dotenv
+load_dotenv(find_dotenv())
 
 import boto3
 import botocore
 import json
 import os
 import subprocess
+import time
 
 s3 = boto3.resource("s3")
+sns = boto3.client("sns")
 
 # Local cache tag map
 cache = {}
@@ -44,3 +50,14 @@ def deploy(event, context):
     proc = subprocess.Popen(args, stdout=subprocess.PIPE)
     for line in proc.stdout:
         print(line)
+
+    # Wait for the process to finish, and check child exit status
+    while proc.poll() is None:
+        time.sleep(1)
+    if proc.returncode != 0:
+        raise RuntimeError("Unable to deploy with requested parameter")
+
+    # Finally report that the deployment was successful
+    msg["Status"] = "Complete"
+    msg["Timestamp"] = datetime.now().isoformat()
+    sns.publish(TopicArn=os.environ.get("REPORT_TOPIC_ARN"), Message=json.dumps(msg, indent=2))
