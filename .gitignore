@@ -64,5 +64,9 @@ target/
 # ignore cert directory
 cert
 
+# ignore stuff from virtual env
+.venv
+venv
+
 # vim tmp object
 *.sw*
