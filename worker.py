@@ -19,10 +19,16 @@ cache = {}
 
 def deploy(event, context):
     msg = json.loads(event["Records"][0]["Sns"]["Message"])
+
+    # Target to deploy
     target = msg["Instance"]["PublicIpAddress"]
+
+    # Target belongs to ClusterName group
+    clusterName = msg["ClusterName"]
 
     # Obtain Runtime Service Specification
     spec = msg["ContainerSpec"]
+
     specfile = "/tmp/{Key}".format(**spec)
     specdir = os.path.dirname(specfile)
     # Setup directory for Specification
@@ -46,7 +52,7 @@ def deploy(event, context):
             raise
 
     # Invoke docker-compose to proces the Service Specification
-    args = [ "./deploy-worker", "--public-ip", target, "--spec", specfile ]
+    args = [ "./deploy-worker", "--cluster", clusterName, "--public-ip", target, "--spec", specfile ]
     proc = subprocess.Popen(args, stdout=subprocess.PIPE)
     for line in proc.stdout:
         print(line)
