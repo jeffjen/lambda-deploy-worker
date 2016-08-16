@@ -3,12 +3,17 @@ set -e
 
 HERE=${PWD}
 
-zip -r app.zip .env \
+mkdir -p dist
+
+zip -r dist/app.zip .env \
     worker.py \
     cert \
     vendor \
     deploy-worker
 
 pushd ${VIRTUAL_ENV}/lib/python2.7/site-packages
-zip -r ${HERE}/app.zip *
+zip -r ${HERE}/dist/app.zip *
 popd
+
+aws lambda update-function-code --function-name lambda-deploy-worker \
+    --zip-file fileb://dist/app.zip

@@ -29,6 +29,10 @@ done
 export DOCKER_HOST=tcp://${PUBLIC_IP}:2376
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=${PWD}/cert
+export DOCKER_CONFIG=/tmp
+
+# Login to get credentials
+eval $(aws ecr get-login --region us-east-1)
 
 # Launch service by specification
 docker-compose -p ${CLUSTER} -f ${SPEC_FILE} up -d
