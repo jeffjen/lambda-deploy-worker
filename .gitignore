@@ -61,18 +61,12 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-# ignore cert directory
-cert
-
 # ignore stuff from virtual env
 .venv
 venv
 
-# ignore certain vendor
-vendor/docker
-
-# ignore the runtime dotenv file
-.env
+# ignore generated content
+config.py
 
 # ignore gulp build related stuff
 node_modules

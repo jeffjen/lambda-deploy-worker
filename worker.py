@@ -1,15 +1,14 @@
 from __future__ import print_function
 from datetime import datetime
 
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
-
 import boto3
 import botocore
 import json
 import os
 import subprocess
 import time
+
+from config import config
 
 s3 = boto3.resource("s3")
 sns = boto3.client("sns")
@@ -66,4 +65,4 @@ def deploy(event, context):
     # Finally report that the deployment was successful
     msg["Status"] = "Complete"
     msg["Timestamp"] = datetime.now().isoformat()
-    sns.publish(TopicArn=os.environ.get("REPORT_TOPIC_ARN"), Message=json.dumps(msg, indent=2))
+    sns.publish(TopicArn=config["REPORT_TOPIC_ARN"], Message=json.dumps(msg, indent=2))

@@ -12,8 +12,8 @@ const dest = {
 };
 const paths = {
     src: [
-        ".env",
         "worker.py",
+        "config.py",
         "deploy-worker"
     ]
 };

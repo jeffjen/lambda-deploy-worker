@@ -1,0 +1,6 @@
+[template]
+src = "config.py.tmpl"
+dest = "config.py"
+keys = [
+    "report_topic"
+]
