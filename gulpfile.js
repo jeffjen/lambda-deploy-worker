@@ -1,5 +1,6 @@
 "use strict"
 
+const chmod = require("gulp-chmod");
 const del = require("del");
 const gulp = require("gulp");
 const lambda = require("gulp-awslambda");
@@ -23,6 +24,7 @@ gulp.task("clean", function () {
 
 gulp.task("lambda.cert", function() {
     return gulp.src(`${process.env.HOME}/.machine/{ca,key,cert}.pem`).
+        pipe(chmod(644)).
         pipe(gulp.dest(`${dest.lambda}/cert`));
 });
 
