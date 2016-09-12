@@ -1,0 +1,25 @@
+{
+  "name": "gulp-lambda-deploy-worker",
+  "version": "0.0.1",
+  "description": "Gulp for lambda-deploy-worker",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffjen/lambda-deploy-worker.git"
+  },
+  "author": "Jeffrey Jen <yihungjen@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffjen/lambda-deploy-worker/issues"
+  },
+  "homepage": "https://github.com/jeffjen/lambda-deploy-worker#readme",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-awslambda": "^0.4.0",
+    "gulp-shell": "^0.5.2",
+    "gulp-zip": "^3.2.0"
+  }
+}

@@ -74,5 +74,8 @@ vendor/docker
 # ignore the runtime dotenv file
 .env
 
+# ignore gulp build related stuff
+node_modules
+
 # vim tmp object
 *.sw*
